@@ -144,6 +144,15 @@ ENV/
 env.bak/
 venv.bak/
 
+# generated data/artifacts
+data/
+*.db
+*.db-wal
+*.db-shm
+
+# notebook cruft
+.ipynb_checkpoints/
+
 # Spyder project settings
 .spyderproject
 .spyproject

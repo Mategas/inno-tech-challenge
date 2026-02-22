@@ -46,6 +46,5 @@ _*Candidate Note*: As I will go with Case A, I won't be adding Case B questions 
 As resolution for the challenge I've decided to go for Case A. The framework chosen was the following:
 - For the extraction, Python to handle the API calls, normalization of the data and persisting the data into a SQL Lite database
 - As for the transform, SQL will be used to clean up, aggregate and model the data into a dimensional model
-- Will handle visualization of the aggregated data with a PowerBI dashboard for interesting visuals, and a Jupyter Notebook for analyzing answering specific questions within the data
-
-_All this is subject to change, but this is the current outline of the excercise resolution_
+- Will handle visualization of the aggregated data with a PowerBI dashboard for interesting visuals (after exporting the data to CSV), and a Notebook (Jupyter) for analyzing and answering specific questions within the data
+- Making everything as a service using GitHub actions. *BEWARE* the PowerBI dashboard is not possible to be refreshed using this framework as it is not possible within GitHub Actions, so this part has to be done manually in case it is necessary to refresh using the newly generated CSVs
