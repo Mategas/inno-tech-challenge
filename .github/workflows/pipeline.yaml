@@ -1,0 +1,49 @@
+name: breweries-etl-service
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 6 * * 1"  # Mondays 06:00 UTC
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Extract (API -> SQLite DB)
+        run: |
+          python etl/extract.py
+
+      - name: Run Transform (SQL model + QA)
+        run: |
+          python etl/transform.py
+
+      - name: Run Load (Export processed tables to CSV)
+        run: |
+          python etl/load.py
+
+      - name: Upload CSV exports
+        uses: actions/upload-artifact@v4
+        with:
+          name: exports-csv
+          path: data/exports/*.csv
+
+      - name: Upload SQLite DB (optional)
+        uses: actions/upload-artifact@v4
+        with:
+          name: sqlite-db
+          path: data/breweries.db
+        continue-on-error: true
