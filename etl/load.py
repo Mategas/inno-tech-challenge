@@ -65,7 +65,7 @@ def main() -> None:
         available = get_tables(conn, include_views=args.include_views)
 
         if args.tables is None:
-            targets = available
+            targets =  ["dim_brewery","dim_geo","dim_type"] # Replaced get_tables with hardcoded list since we know the tables and want to exclude raw/stg data to avoid unnecessary exports.
         else:
             missing = [t for t in args.tables if t not in available]
             if missing:
